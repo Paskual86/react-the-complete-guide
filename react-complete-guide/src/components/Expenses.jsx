@@ -25,9 +25,9 @@ function Expenses() {
 
   return (
     <div className="expenses">
-      {expenses.map((exp) => {
+      {expenses.map((exp, itemId) => {
         return (
-          <ExpenseItem
+          <ExpenseItem key = {exp.id}
             title={exp.title}
             date={exp.date}
             amount={exp.amount}
