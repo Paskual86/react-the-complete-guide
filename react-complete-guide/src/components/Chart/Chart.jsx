@@ -1,5 +1,7 @@
 import React from "react";
-
+/* ALGO MUY IMPORTANTE, REVISAR LOS IMPORTS. Si se intenta importar un archivo internamente, se produce un loop. Ejemplo: Estoy en el archivo Chart.jsx e intento importar
+el archivo chart.jsx
+import ChartBar from './Chart' */
 import ChartBar from "./ChartBar";
 import './Chart.css';
 
