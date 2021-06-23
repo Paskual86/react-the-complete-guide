@@ -51,7 +51,7 @@ const ExpenseForm = (props) => {
         event.preventDefault(); // Puro javascript. Evita que la pagina se recargue.
         const expenseData = {
             title: enteredTitle,
-            amount: enteredAmount,
+            amount: +enteredAmount,
             date: new Date(enteredDate)
         }
         props.onChangeExpense(expenseData);

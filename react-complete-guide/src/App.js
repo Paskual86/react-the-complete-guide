@@ -31,12 +31,12 @@ function App() {
     setExpenses((prevExpenses) => {
       return [expense, ...prevExpenses];
     });
-  }
+  };
 
   return (
     <div>
-      <NewExpense onChangeExpense={onChangeExpenseHandler}/>
-      <Expenses expenses={expenses}></Expenses>      
+      <NewExpense onChangeExpense={onChangeExpenseHandler} />
+      <Expenses items={expenses}></Expenses>
     </div>
   );
 }
