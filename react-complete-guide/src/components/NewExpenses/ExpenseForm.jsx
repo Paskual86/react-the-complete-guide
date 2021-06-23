@@ -46,6 +46,7 @@ const ExpenseForm = (props) => {
             enteredDate: event.target.value
         });
     }
+
     const submitHandler = (event) => {
         event.preventDefault(); // Puro javascript. Evita que la pagina se recargue.
         const expenseData = {
@@ -54,6 +55,12 @@ const ExpenseForm = (props) => {
             date: new Date(enteredDate)
         }
         props.onChangeExpense(expenseData);
+    }
+
+    const onCancelClickHandler = () => {
+        if (props.onCancel) {
+            props.onCancel();
+        }
     }
 
     return(
@@ -73,6 +80,8 @@ const ExpenseForm = (props) => {
                 </div>
             </div>
             <div className="new-expense__actions">
+                {/*En React es necesario especificar, cuando estoy dentro de un form que el tipo de un boton es button*/}
+                <button type="button" onClick={onCancelClickHandler}>Cancel</button>
                 <button type="submit">AddExpense</button>
             </div>
         </form>
