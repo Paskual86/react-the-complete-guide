@@ -1,0 +1,10 @@
+.user-list {
+  list-style: none;
+  border: 1px solid #ccc;
+  background: transparent;
+  color: black;
+  padding: 0.5rem;
+  margin: 0.1rem;
+  cursor: pointer;  
+  border-radius: 5px;
+}

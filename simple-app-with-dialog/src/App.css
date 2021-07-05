@@ -1,13 +1,16 @@
-#goals {
+#users {
   width: 35rem;
   max-width: 90%;
-  margin: 3rem auto;
+  margin: 1rem auto;
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: 10px;
 }
 
-#goal-form {
-  width: 30rem;
+#user-form {
+  width: 35rem;
   max-width: 90%;
-  margin: 3rem auto;
+  margin: 1rem auto;
   padding: 2rem;
   background-color: white;
   box-shadow: 0 2px 12px rgba(241, 239, 239, 0.2);
