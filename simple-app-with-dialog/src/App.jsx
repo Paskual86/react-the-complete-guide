@@ -7,13 +7,13 @@ import "./App.css";
 function App() {
 
   const [userList, setUserList] = useState([
-    { text: 'Pablo (35)', id: 'g1' }
+    { name: 'Pablo', age:35, id: 'g1' }
   ]);
 
-  const addUserHandler = userInput => {
+  const addUserHandler = (uName, uAge) => {
     setUserList(prevUsers => {
       const updatedUserList = [...prevUsers];
-      updatedUserList.unshift({ text: userInput, id: Math.random().toString() });
+      updatedUserList.unshift({ name: uName, age:uAge, id: Math.random().toString() });
       return updatedUserList;
     });
   };
@@ -37,12 +37,8 @@ function App() {
 
   return (
     <div>
-      <section id="user-form">
-        <UserInput />
-      </section>
-      <section id="users">
-        {content}
-      </section>
+      <UserInput onAddUser={addUserHandler}/>
+      {content}
     </div>
   );
 }

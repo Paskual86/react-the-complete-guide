@@ -7,7 +7,7 @@ const UserItem = props => {
 
   return (
     <li className="user-item" onClick={deleteHandler}>
-      {props.children}
+      {props.name} ({props.age} years old)
     </li>
   );
 };
