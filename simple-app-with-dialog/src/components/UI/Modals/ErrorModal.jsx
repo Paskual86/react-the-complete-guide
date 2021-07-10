@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import BackdropPortal from "../Portals/BackdropPortal";
 import ModalOverlayPortal from "../Portals/ModalOverlayPortal";
 import Card from "../Card/Card";
