@@ -1,42 +1,35 @@
-import Expenses from "./components/Expenses/Expenses";
-import NewExpense from "./components/NewExpenses/NewExpense";
-import { useState } from "react";
-
-const DUMMY_EXPENSES = [
-  {
-    id: "e1",
-    title: "Toilet Paper",
-    amount: 94.12,
-    date: new Date(2020, 7, 14),
-  },
-  { id: "e2", title: "New TV", amount: 799.49, date: new Date(2021, 2, 12) },
-  {
-    id: "e3",
-    title: "Car Insurance",
-    amount: 294.67,
-    date: new Date(2021, 2, 28),
-  },
-  {
-    id: "e4",
-    title: "New Desk (Wooden)",
-    amount: 450,
-    date: new Date(2021, 5, 12),
-  },
-];
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Main/Home";
+import Login from "./components/Main/Login";
+import Main from "./components/Main/Main";
+import NoPage from "./components/Main/NoPage";
+import RegisterForm from "./components/UserAccess/RegisterForm";
+import { AuthContextProvider } from "./store/auth-context";
+import AuthRequired from "./store/auth-required";
 
 function App() {
-  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
-
-  const onChangeExpenseHandler = (expense) => {
-    setExpenses((prevExpenses) => {
-      return [expense, ...prevExpenses];
-    });
-  };
-
   return (
     <div>
-      <NewExpense onChangeExpense={onChangeExpenseHandler} />
-      <Expenses items={expenses}></Expenses>
+      <AuthContextProvider>
+        <Router>
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/login" element={<Login />}></Route>
+            <Route
+              path="/home"
+              element={
+                <AuthRequired>
+                  <Main />
+                </AuthRequired>
+              }
+            ></Route>
+            <Route path="/register" element={<RegisterForm />}></Route>
+
+            <Route path="*" element={<NoPage />} />
+          </Routes>
+        </Router>
+      </AuthContextProvider>
     </div>
   );
 }
