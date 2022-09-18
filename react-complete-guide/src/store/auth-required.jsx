@@ -5,6 +5,7 @@ import AuthContext from "./auth-context";
 function AuthRequired(props) {
   const ctx = React.useContext(AuthContext);
   let location = useLocation();
+  console.log(ctx.isLoggedIn);
   if (!ctx.isLoggedIn) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }

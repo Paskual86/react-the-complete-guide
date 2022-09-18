@@ -1,0 +1,67 @@
+.login__controls {
+    display: block;
+    flex-wrap: wrap-reverse;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.login__control label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.login__control input {
+    font: inherit;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 20rem;
+    max-width: 100%;
+}
+
+.login__actions {
+    text-align: center;
+}
+
+.login-container {
+    background-color: var(--background-login-container);
+    padding: 1rem;
+    margin: 2rem auto;
+    width: 20rem;
+    max-width: 95%;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.login-container button {
+    font: inherit;
+    width: 6.5rem;
+    height: 3rem;
+    cursor: pointer;
+    border: 1px solid var(--background-login-button-ok-border);
+    background-color: var(--background-login-button-ok);
+    color: var(--background-login-button-ok-text);
+    border-radius: 12px;
+    margin: 1rem;
+    text-align: center;
+}
+
+.login-container button:hover,
+.login-container button:active {
+    background-color: var(--background-login-button-ok-active);
+    border-color: var(--background-login-button-ok-active);
+}
+
+.login-container button.alternative {
+    color: #220131;
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.login-container button.alternative:hover,
+.login-container button.alternative:active {
+    background-color: var(--background-login-button-ok-hover-alternative);
+}

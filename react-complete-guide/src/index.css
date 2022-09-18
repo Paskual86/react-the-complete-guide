@@ -10,6 +10,17 @@ html {
 
 body {
   margin: 0;
-  background-color: #3f3f3f;
+  background-color: #E3F2FD;
 }
 
+
+:root {
+  --background-login-container: #BBDEFB;
+  --background-login-button-ok: #42A5F5;
+  --background-login-button-ok-border: #1E88E5;
+  --background-login-button-ok-active: #1976D2;
+  --background-login-button-ok-hover-alternative: #BBDEFB;
+  --background-login-button-ok-text: white;
+  --background-login-button-cancel: #42A5F5;
+
+}

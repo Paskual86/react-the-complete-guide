@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const AuthContext = React.createContext({
-  isLoggedIn: false,
+  isLoggedIn: localStorage.getItem("isLoggedIn") === "1",
   onLogout: () => {},
   onLogin: (email, password) => {},
 });
