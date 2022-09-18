@@ -1,47 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import "./NewExpense.css";
 import ExpenseForm from "./ExpenseForm";
+import Backdrop from "../Common/Backdrop";
+import Modal from "../Common/Modal";
 
 const NewExpense = (props) => {
-  const [showExpenseForm, setShowExpenseForm] = useState(false);
-
-  const onChangeExpenseHandler = (expense) => {
-    const expenseReceived = {
-      ...expense,
-    };
-    props.onChangeExpense(expenseReceived);
-    onShowFormHandler();
-  };
-
-  const onShowFormHandler = () => {
-    setShowExpenseForm((prevStatus) => {
-      return !prevStatus;
-    });
-  };
-
-  const onClickHandler = () => {
-    onShowFormHandler();
-  };
-
-  const onCancelFormHandler = () => {
-    onShowFormHandler();
-  };
-
-  if (!showExpenseForm) {
-    return (
-      <div className="new-expense">
-        <button onClick={onClickHandler}>Add Expense</button>
-      </div>
-    );
-  }
-
   return (
-    <div className="new-expense">
-      <ExpenseForm
-        onChangeExpense={onChangeExpenseHandler}
-        onCancel={onCancelFormHandler}
-      ></ExpenseForm>
-    </div>
+    <>
+      {props.showExpenseForm && <Backdrop onClick={props.onCancelForm} />}
+      {props.showExpenseForm && (
+        <Modal text="Are you sure?" onOk={props.onOkForm}>
+          <ExpenseForm
+            onChangeExpense={props.onChangeExpense}
+            onCancel={props.onCancelForm}
+          ></ExpenseForm>
+        </Modal>
+      )}
+    </>
   );
 };
 

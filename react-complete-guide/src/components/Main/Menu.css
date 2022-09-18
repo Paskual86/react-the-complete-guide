@@ -5,8 +5,20 @@
     width: 50rem;
     max-width: 95%;
     border-radius: 12px;
-    text-align: right;
+    text-align: center;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.menu-expense .actions {
+    display: inline-block;
+    width: 50%;
+    text-align: left;
+}
+
+.menu-expense .logout {
+    display: inline-block;
+    width: 50%;
+    text-align: right;
 }
 
 .menu-expense button {
