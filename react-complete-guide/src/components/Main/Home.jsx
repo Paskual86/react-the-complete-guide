@@ -1,32 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { GetExpenses, SaveExpense } from "../../api/firebaseApi";
 import useUser from "../../hooks/useUser";
 import Main from "./Main";
 import Menu from "./Menu";
-const DUMMY_EXPENSES = [
-  {
-    id: "e1",
-    title: "Toilet Paper",
-    amount: 94.12,
-    date: new Date(2020, 7, 14),
-  },
-  { id: "e2", title: "New TV", amount: 799.49, date: new Date(2021, 2, 12) },
-  {
-    id: "e3",
-    title: "Car Insurance",
-    amount: 294.67,
-    date: new Date(2021, 2, 28),
-  },
-  {
-    id: "e4",
-    title: "New Desk (Wooden)",
-    amount: 450,
-    date: new Date(2021, 5, 12),
-  },
-];
 
 export default function Home() {
-  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+  const [expenses, setExpenses] = useState([]);
   const [showExpenseForm, setShowExpenseForm] = useState(false);
   const location = useLocation();
   const { user, clearSession } = useUser();
@@ -41,6 +21,7 @@ export default function Home() {
     setExpenses((prevExpenses) => {
       return [expense, ...prevExpenses];
     });
+    SaveExpense(expense, user.user.uid);
     onShowFormHandler();
   };
 
@@ -53,6 +34,36 @@ export default function Home() {
   const onCancelFormHandler = () => {
     onShowFormHandler();
   };
+
+  useEffect(() => {
+    if (user) {
+      const getExpenses = async () => {
+        const data = await GetExpenses(user.user.uid);
+        setExpenses((prevExpenses) => {
+          return [
+            ...data.map((val) => ({
+              id: val.id,
+              title: val.title,
+              amount: val.amount,
+              date: new Date(val.date),
+            })),
+            ...prevExpenses,
+          ];
+        });
+
+        var test = data.map((val) => ({
+          id: val.id,
+          title: val.title,
+          amount: val.amount,
+          date: new Date(val.date),
+        }));
+        console.log(test);
+        console.log(test[0].date.getFullYear());
+      };
+      getExpenses().catch(console.error);
+      // setExpenses(expensesFirebase);
+    }
+  }, [user]);
 
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;

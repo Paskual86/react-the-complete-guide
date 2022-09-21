@@ -1,15 +1,12 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
-import { auth } from "../../firebaseConfig";
+
 import "./Login.css";
 import AuthContext from "../../store/auth-context";
 import { useNavigate } from "react-router-dom";
-import useUser from "../../hooks/useUser";
+import { LoginCredential } from "../../api/firebaseApi";
 
 export default function Login() {
   const ctx = React.useContext(AuthContext);
-  const { setUser } = useUser();
-
   const navigate = useNavigate();
   const [emailuser, setEmailuser] = useState("");
   const [password, setPassword] = useState("");
@@ -25,17 +22,10 @@ export default function Login() {
   const onSubmitHandler = (event) => {
     event.preventDefault(); // Puro javascript. Evita que la pagina se recargue.
     try {
-      signInWithEmailAndPassword(auth, emailuser, password)
-        .then((userCredential) => {
-          ctx.onLogin(emailuser, password);
-          setUser(userCredential);
-          console.log(userCredential);
-          navigate("/");
-        })
-        .catch((error) => {
-          console.log(error.code);
-          console.log(error.message);
-        });
+      LoginCredential(emailuser, password, (response) => {
+        ctx.onLogin(response);
+        navigate("/");
+      });
     } catch (e) {
       console.log(e);
     }
