@@ -1,5 +1,5 @@
 .menu-expense {
-    background-color: #a892ee;
+    background-color: var(--menu-expense-background-color);
     padding: 1rem;
     margin: 2rem auto;
     width: 50rem;
@@ -21,12 +21,23 @@
     text-align: right;
 }
 
-.menu-expense button {
+.menu-expense .logout button {
     font: inherit;
     cursor: pointer;
     padding: 1rem 2rem;
-    border: 1px solid #40005d;
-    background-color: #40005d;
+    border: 1px solid var(--menu-expense-button-logout-border);
+    background-color: var(--menu-expense-button-logout-background-color);
+    color: white;
+    border-radius: 12px;
+    margin-right: 1rem;
+}
+
+.menu-expense .actions button {
+    font: inherit;
+    cursor: pointer;
+    padding: 1rem 2rem;
+    border: 1px solid var(--menu-expense-button-border);
+    background-color: var(--menu-expense-button-background-color);
     color: white;
     border-radius: 12px;
     margin-right: 1rem;

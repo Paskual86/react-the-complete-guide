@@ -23,4 +23,27 @@ body {
   --background-login-button-ok-text: white;
   --background-login-button-cancel: #42A5F5;
 
+  --chart-background-color: #42A5F5;
+  --chart-bar-fill-background-color: #1976D2;
+  --chart-bar-inner-background-color: #BBDEFB;
+  --chart-bar-inner-border-color: #2d2d2e;
+
+  --new-expenses-background-color: #42A5F5;
+  --new-expenses-button-ok-background: #42A5F5;
+  --new-expenses-button-ok-border: #1E88E5;
+  --new-expenses-button-ok-active-background: #1976D2;
+  --new-expenses-button-ok-active-border: #05417e;
+  --new-expenses-button-ok-alternative-background: #42A5F5;
+
+  --menu-expense-background-color: #42A5F5;
+  --menu-expense-button-background-color: #42A5F5;
+  --menu-expense-button-border: #1E88E5;
+  --menu-expense-button-active: #1976D2;
+
+  --menu-expense-button-logout-background-color: #BD2A2E;
+  --menu-expense-button-logout-border: #3B3936;
+
+  --expense-item-background-color: #0B2B40;
+  --expense-item-date-background-color: #1E5959;
+  --expense-item__price-background-color: #164773;
 }
