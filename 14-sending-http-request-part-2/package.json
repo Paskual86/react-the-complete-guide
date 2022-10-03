@@ -1,5 +1,5 @@
 {
-  "name": "react-the-complete-guide",
+  "name": "sending-http-request-part-2",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -30,5 +30,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "Sending Http Request Part 2",
+  "main": "index.js",
+  "author": "Pablo Andrada",
+  "license": "MIT"
 }
