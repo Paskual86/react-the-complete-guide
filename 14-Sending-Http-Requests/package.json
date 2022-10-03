@@ -1,5 +1,5 @@
 {
-  "name": "react-the-complete-guide",
+  "name": "14-sending-http-request",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -30,5 +30,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "Tutorial how to fetch information from website",
+  "main": "index.js",
+  "author": "Pablo Andrada",
+  "license": "MIT"
 }
