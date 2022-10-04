@@ -1,5 +1,5 @@
 {
-  "name": "react-complete-guide",
+  "name": "building-custom-react-hooks-part-1",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,7 +15,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "commit": "git add . && git commit -am "
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +35,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "Building React Hooks Part 1",
+  "main": "index.js",
+  "author": "Pablo Andrada",
+  "license": "MIT"
 }
