@@ -1,28 +1,23 @@
 import { useState } from "react";
+import useInput from "../hooks/use-input";
 import EmailInput from "./UI/EmailInput";
 
 const SimpleInput = (props) => {
-  const [enteredName, setEnteredName] = useState("");
-  const [touchForm, setTouchForm] = useState(false);
+  const {
+    value: enteredNameValue,
+    isValid: isValidName,
+    hasError: hasErrorName,
+    onChange: onChangeNameHandler,
+    onBlur: onBlurNameHandler,
+    onReset: onResetNameHandler,
+  } = useInput((value) => value.trim() !== "");
+
   const [isEmailValid, setIsEmailValid] = useState(false);
+  const [touchForm, setTouchForm] = useState(false);
 
-  const enteredNameIsValid = enteredName.trim() !== "";
-  const nameInputIsInvalid = !enteredNameIsValid && touchForm;
-  const classForm = nameInputIsInvalid
-    ? "form-control invalid"
-    : "form-control";
+  const classForm = hasErrorName ? "form-control invalid" : "form-control";
 
-  let isValidForm = enteredNameIsValid && isEmailValid;
-
-  const onChangeNameHandler = (event) => {
-    setTouchForm(true);
-    setEnteredName(event.target.value);
-  };
-
-  const onBlurNameHandler = (event) => {
-    setTouchForm(true);
-    setEnteredName(event.target.value);
-  };
+  let isValidForm = isValidName && isEmailValid;
 
   const isValidEmailEventHandler = (isValid) => {
     setIsEmailValid(isValid);
@@ -31,9 +26,10 @@ const SimpleInput = (props) => {
   const onFormSubmitHandler = (event) => {
     event.preventDefault();
     setTouchForm(true);
-    if (nameInputIsInvalid) console.log(enteredName);
+    if (isValidName) console.log(enteredNameValue);
     else console.log(`Is not valid`);
     setTouchForm(false);
+    onResetNameHandler();
   };
 
   return (
@@ -45,10 +41,9 @@ const SimpleInput = (props) => {
           onBlur={onBlurNameHandler}
           type="text"
           id="name"
+          value={enteredNameValue}
         />
-        {nameInputIsInvalid && (
-          <p className="error-text">Name Could not be empty</p>
-        )}
+        {hasErrorName && <p className="error-text">Name Could not be empty</p>}
         <EmailInput isValidEvent={isValidEmailEventHandler}></EmailInput>
       </div>
       <div className="form-actions">
