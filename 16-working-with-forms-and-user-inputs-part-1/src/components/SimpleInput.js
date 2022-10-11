@@ -1,6 +1,13 @@
-import { useState } from "react";
 import useInput from "../hooks/use-input";
 import EmailInput from "./UI/EmailInput";
+
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
 
 const SimpleInput = (props) => {
   const {
@@ -12,24 +19,27 @@ const SimpleInput = (props) => {
     onReset: onResetNameHandler,
   } = useInput((value) => value.trim() !== "");
 
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const [touchForm, setTouchForm] = useState(false);
+  const {
+    value: enteredEmailValue,
+    isValid: isValidEmail,
+    hasError: hasErrorEmail,
+    onChange: onChangeEmailHandler,
+    onBlur: onBlurEmailHandler,
+    onReset: onResetEmailHandler,
+  } = useInput(validateEmail);
 
   const classForm = hasErrorName ? "form-control invalid" : "form-control";
 
-  let isValidForm = isValidName && isEmailValid;
-
-  const isValidEmailEventHandler = (isValid) => {
-    setIsEmailValid(isValid);
-  };
+  let isValidForm = isValidName && isValidEmail;
 
   const onFormSubmitHandler = (event) => {
     event.preventDefault();
-    setTouchForm(true);
-    if (isValidName) console.log(enteredNameValue);
-    else console.log(`Is not valid`);
-    setTouchForm(false);
+    if (!isValidForm) {
+      return;
+    }
+    console.log(`Name: ${enteredNameValue}. Email: ${enteredEmailValue}`);
     onResetNameHandler();
+    onResetEmailHandler();
   };
 
   return (
@@ -44,7 +54,12 @@ const SimpleInput = (props) => {
           value={enteredNameValue}
         />
         {hasErrorName && <p className="error-text">Name Could not be empty</p>}
-        <EmailInput isValidEvent={isValidEmailEventHandler}></EmailInput>
+        <EmailInput
+          onChange={onChangeEmailHandler}
+          onBlur={onBlurEmailHandler}
+          hasError={hasErrorEmail}
+          value={enteredEmailValue}
+        ></EmailInput>
       </div>
       <div className="form-actions">
         <button disabled={!isValidForm}>Submit</button>
