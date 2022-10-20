@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { products: [], showCart: false };
+const initialState = { products: [], showCart: false, totalQuantiy: 0 };
 
 function arrayMax(arr) {
   if (arr && arr.length > 0) {
@@ -34,15 +34,26 @@ const cartSlice = createSlice({
         existingItem.quantity++;
         existingItem.total = existingItem.quantity * newItem.price;
       }
+      state.totalQuantiy++;
     },
     removeProduct(state, action) {
       if (state.products.length > 0) {
-        let productIndex = state.products.findIndex(
-          (f) => f.id === action.payload
+        const existingItem = state.products.findIndex(
+          (item) => item.productId === action.payload
         );
-        if (productIndex) {
-          state.products.splice(productIndex, 1);
+
+        if (existingItem >= 0) {
+          if (state.products[existingItem].quantity > 1) {
+            state.products[existingItem].quantity--;
+            state.products[existingItem].total -=
+              state.products[existingItem].price;
+          } else {
+            state.products.splice(existingItem, 1);
+          }
         }
+        state.totalQuantiy--;
+      } else {
+        state.totalQuantiy = 0;
       }
     },
     showModalCart(state, action) {
