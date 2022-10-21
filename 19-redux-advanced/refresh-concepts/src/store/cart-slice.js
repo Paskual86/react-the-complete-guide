@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { uiActions } from "./ui-slice";
 const initialState = { products: [], showCart: false, totalQuantiy: 0 };
 
 function arrayMax(arr) {
@@ -61,6 +61,51 @@ const cartSlice = createSlice({
     },
   },
 });
+
+export const sendCartData = (cartData) => {
+  return async (dispatchFunction) => {
+    dispatchFunction(
+      uiActions.showNotification({
+        status: "pending",
+        title: "Sending...",
+        message: "Sending cart data!!!",
+      })
+    );
+
+    const executeRequest = async () => {
+      const response = await fetch(
+        "https://redux-cart-10a5c-default-rtdb.firebaseio.com/cart.json",
+        {
+          method: "PUT",
+          body: JSON.stringify(cartData),
+        }
+      );
+
+      if (!response.ok) {
+        throw Error("There was an error executing request");
+      }
+    };
+
+    try {
+      await executeRequest();
+      dispatchFunction(
+        uiActions.showNotification({
+          status: "success",
+          title: "Sucess!!!",
+          message: "Sucessfully",
+        })
+      );
+    } catch (error) {
+      dispatchFunction(
+        uiActions.showNotification({
+          status: "error",
+          title: "Error",
+          message: error.message,
+        })
+      );
+    }
+  };
+};
 
 export const cartActions = cartSlice.actions;
 export default cartSlice;
