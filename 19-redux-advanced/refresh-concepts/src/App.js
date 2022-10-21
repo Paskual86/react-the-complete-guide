@@ -25,7 +25,6 @@ function App() {
           message: "Sending cart data!!!",
         })
       );
-
       const response = await fetch(
         "https://redux-cart-10a5c-default-rtdb.firebaseio.com/cart.json",
         {
@@ -62,6 +61,17 @@ function App() {
     });
   }, [cart, dispatch]);
 
+  useEffect(() => {
+    if (isInitial) {
+      return;
+    }
+
+    if (notification !== null) {
+      setTimeout(() => {
+        dispatch(uiActions.showNotification(null));
+      }, 2000);
+    }
+  }, [notification, dispatch]);
   const modalHandler = () => {
     dispatch(cartActions.showModalCart(false));
   };
