@@ -4,7 +4,8 @@ import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
 import Modal from "./components/UI/Modal";
 import Backdrop from "./components/UI/Backdrop";
-import { cartActions, sendCartData } from "./store/cart-slice";
+import { cartActions } from "./store/cart-slice";
+import { fetchCartData, sendCartData } from "./store/cart-actions";
 import { useEffect } from "react";
 import { uiActions } from "./store/ui-slice";
 import Notification from "./components/UI/Notification";
@@ -16,14 +17,21 @@ function App() {
   const showCart = useSelector((state) => state.cart.showCart);
   const cart = useSelector((state) => state.cart.products);
   const notification = useSelector((state) => state.ui.notification);
+  const dataWasChanged = useSelector((state) => state.cart.changed);
+
+  useEffect(() => {
+    dispatch(fetchCartData());
+  }, [dispatch]);
 
   useEffect(() => {
     if (isInitial) {
       isInitial = false;
       return;
     }
-    dispatch(sendCartData(cart));
-  }, [cart, dispatch]);
+    if (dataWasChanged) {
+      dispatch(sendCartData(cart));
+    }
+  }, [cart, dispatch, dataWasChanged]);
 
   useEffect(() => {
     if (isInitial) {
