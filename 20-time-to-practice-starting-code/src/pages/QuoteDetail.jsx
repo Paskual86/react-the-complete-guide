@@ -3,7 +3,6 @@ import { Link, Route, useParams, useRouteMatch } from 'react-router-dom';
 import Comments from '../components/comments/Comments';
 import HighlightedQuote from '../components/quotes/HighlightedQuote';
 import LoadingSpinner from '../components/UI/LoadingSpinner';
-import DUMMY_QUOTES from '../constants/DataConst';
 import useHttp from '../hooks/use-http';
 import { getSingleQuote } from '../lib/api';
 
@@ -21,9 +20,12 @@ export default function QuoteDetail() {
     sendRequest(param.quoteId);
   }, [sendRequest, param]);
 
-  console.log(match);
   if (status === 'pending') {
-    return <LoadingSpinner />;
+    return (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
   }
   if (error) {
     return <p className="centered"> {error}</p>;
