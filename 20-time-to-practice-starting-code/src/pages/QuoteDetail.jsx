@@ -1,12 +1,14 @@
 import React from 'react';
-import { Link, Route, useParams } from 'react-router-dom';
+import { Link, Route, useParams, useRouteMatch } from 'react-router-dom';
 import Comments from '../components/comments/Comments';
 import HighlightedQuote from '../components/quotes/HighlightedQuote';
 import DUMMY_QUOTES from '../constants/DataConst';
 
 export default function QuoteDetail() {
   const param = useParams();
+  const match = useRouteMatch();
 
+  console.log(match);
   const quote = DUMMY_QUOTES.find((quote) => quote.id === param.quoteId);
 
   if (!quote) {
@@ -19,14 +21,14 @@ export default function QuoteDetail() {
         text={quote.text}
         author={quote.author}
       ></HighlightedQuote>
-      <Route path="/quotes/:quoteId" exact>
+      <Route path={match.path} exact>
         <div className="centered">
-          <Link className="btn--flat" to={`/quotes/${quote.id}/comments`}>
+          <Link className="btn--flat" to={`${match.url}/comments`}>
             Load Comments
           </Link>
         </div>
       </Route>
-      <Route path="/quotes/:quoteId/comments">
+      <Route path={`${match.path}/comments`}>
         <Comments />
       </Route>
     </div>
