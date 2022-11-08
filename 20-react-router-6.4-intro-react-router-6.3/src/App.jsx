@@ -9,7 +9,7 @@ import BlogLayout from './pages/BlogLayout';
 import BlogPostsPage, { loader as blogPostsLoader } from './pages/BlogPosts';
 import ErrorPage from './pages/Error';
 
-import NewPostPage from './pages/NewPost';
+import NewPostPage, { action as NewPostPageAction } from './pages/NewPost';
 import PostDetailPage, { loader as blogPostLoader } from './pages/PostDetail';
 import RootLayout from './pages/RootLayout';
 import WelcomePage from './pages/Welcome';
@@ -31,7 +31,11 @@ const router = createBrowserRouter(
           errorElement={<p>An Error Occurs</p>}
         />
       </Route>
-      <Route path="/blog/new" element={<NewPostPage />} />
+      <Route
+        path="/blog/new"
+        element={<NewPostPage />}
+        action={NewPostPageAction}
+      />
     </Route>
   )
 );
