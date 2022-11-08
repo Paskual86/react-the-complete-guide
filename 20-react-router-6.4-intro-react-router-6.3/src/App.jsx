@@ -7,6 +7,9 @@ import {
 
 import BlogLayout from './pages/BlogLayout';
 import BlogPostsPage, { loader as blogPostsLoader } from './pages/BlogPosts';
+import DeferredBlogPostPage, {
+  loader as deferredBlogPostsLoader,
+} from './pages/DeferredBlogPostPage';
 import ErrorPage from './pages/Error';
 
 import NewPostPage, { action as NewPostPageAction } from './pages/NewPost';
@@ -23,7 +26,11 @@ const router = createBrowserRouter(
     <Route path="/" element={<RootLayout />} errorElement={<ErrorPage />}>
       <Route index element={<WelcomePage />} />
       <Route path="/blog" element={<BlogLayout />}>
-        <Route index element={<BlogPostsPage />} loader={blogPostsLoader} />
+        <Route
+          index
+          element={<DeferredBlogPostPage />}
+          loader={deferredBlogPostsLoader}
+        />
         <Route
           path=":id"
           element={<PostDetailPage />}
