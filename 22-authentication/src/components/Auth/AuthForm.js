@@ -1,5 +1,8 @@
 import { useState, useRef } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import auth from '../../firebaseConfig';
 
 import classes from './AuthForm.module.css';
@@ -22,26 +25,43 @@ const AuthForm = () => {
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
-    createUserWithEmailAndPassword(auth, enteredEmail, enteredPassword)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
-        console.log(user);
-      })
-      .catch((error) => {
-        //const errorCode = error.code;
-        let errorMessage = 'Authentication failed!!!';
-        if (error && error.message) {
-          errorMessage = error.message;
-        }
-        alert(errorMessage);
+    if (isLogin) {
+      signInWithEmailAndPassword(auth, enteredEmail, enteredPassword)
+        .then((userCredential) => {
+          console.log(userCredential._tokenResponse);
+        })
+        .catch((error) => {
+          let errorMessage = 'Authentication failed!!!';
+          if (error && error.message) {
+            errorMessage = error.message;
+          }
+          alert(errorMessage);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      createUserWithEmailAndPassword(auth, enteredEmail, enteredPassword)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          // ...
+          console.log(user);
+        })
+        .catch((error) => {
+          //const errorCode = error.code;
+          let errorMessage = 'Authentication failed!!!';
+          if (error && error.message) {
+            errorMessage = error.message;
+          }
+          alert(errorMessage);
 
-        // ..
-      })
-      .finally((f) => {
-        setIsLoading(false);
-      });
+          // ..
+        })
+        .finally((f) => {
+          setIsLoading(false);
+        });
+    }
   };
 
   return (
