@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -6,9 +6,11 @@ import {
 import auth from '../../firebaseConfig';
 
 import classes from './AuthForm.module.css';
+import { AuthContext } from '../../store/auth-context';
 
 const AuthForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const ctx = useContext(AuthContext);
 
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
@@ -29,6 +31,7 @@ const AuthForm = () => {
       signInWithEmailAndPassword(auth, enteredEmail, enteredPassword)
         .then((userCredential) => {
           console.log(userCredential._tokenResponse);
+          ctx.login(userCredential._tokenResponse.idToken);
         })
         .catch((error) => {
           let errorMessage = 'Authentication failed!!!';
@@ -47,6 +50,7 @@ const AuthForm = () => {
           const user = userCredential.user;
           // ...
           console.log(user);
+          ctx.login(userCredential._tokenResponse.idToken);
         })
         .catch((error) => {
           //const errorCode = error.code;
