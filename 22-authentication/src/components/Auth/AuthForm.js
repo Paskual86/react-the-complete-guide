@@ -36,7 +36,14 @@ const AuthForm = () => {
       signInWithEmailAndPassword(auth, enteredEmail, enteredPassword)
         .then((userCredential) => {
           console.log(userCredential._tokenResponse);
-          ctx.login(userCredential._tokenResponse.idToken);
+          const expirationTime = new Date(
+            new Date().getTime() +
+              +userCredential._tokenResponse.expiresIn * 1000
+          );
+          ctx.login(
+            userCredential._tokenResponse.idToken,
+            expirationTime.toISOString()
+          );
         })
         .catch((error) => {
           let errorMessage = 'Authentication failed!!!';
