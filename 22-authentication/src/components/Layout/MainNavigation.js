@@ -1,12 +1,24 @@
+import { getAuth } from 'firebase/auth';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import firebaseConfigApp from '../../firebaseConfig';
 import { AuthContext } from '../../store/auth-context';
 
 import classes from './MainNavigation.module.css';
 
 const MainNavigation = () => {
   const ctx = useContext(AuthContext);
+  const auth = getAuth(firebaseConfigApp);
 
+  const onLogoutHandler = () => {
+    ctx.logout();
+    auth
+      .signOut(auth)
+      .then((result) => console.log(result))
+      .catch((error) => {
+        alert(error.messsage);
+      });
+  };
   return (
     <header className={classes.header}>
       <Link to="/">
@@ -26,7 +38,7 @@ const MainNavigation = () => {
           )}
           {ctx.isLoggedIn && (
             <li>
-              <button>Logout</button>
+              <button onClick={onLogoutHandler}>Logout</button>
             </li>
           )}
           }

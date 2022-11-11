@@ -3,9 +3,11 @@ import { useRef } from 'react';
 import { getAuth, updatePassword } from 'firebase/auth';
 
 import firebaseConfigApp from '../../firebaseConfig';
+import { useHistory } from 'react-router-dom';
 
 const ProfileForm = () => {
   const newPasswordRef = useRef();
+  const history = useHistory();
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -14,7 +16,9 @@ const ProfileForm = () => {
     const newPassword = newPasswordRef.current.value;
 
     updatePassword(auth.currentUser, newPassword)
-      .then(() => {})
+      .then(() => {
+        history.replace('/');
+      })
       .catch((error) => {
         alert(error.message);
       });

@@ -1,17 +1,20 @@
 import { useState, useRef, useContext } from 'react';
+
 import {
   createUserWithEmailAndPassword,
+  getAuth,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
-import auth from '../../firebaseConfig';
 
 import classes from './AuthForm.module.css';
 import { AuthContext } from '../../store/auth-context';
+import { useHistory } from 'react-router-dom';
+import firebaseConfigApp from '../../firebaseConfig';
 
 const AuthForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const ctx = useContext(AuthContext);
-
+  const history = useHistory();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
@@ -20,6 +23,8 @@ const AuthForm = () => {
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
+
+  const auth = getAuth(firebaseConfigApp);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -51,6 +56,7 @@ const AuthForm = () => {
           // ...
           console.log(user);
           ctx.login(userCredential._tokenResponse.idToken);
+          history.replace('/');
         })
         .catch((error) => {
           //const errorCode = error.code;
