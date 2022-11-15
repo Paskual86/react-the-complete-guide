@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "commit": "git add . && git commit -am ",
+    "push": "git push origin main"
   },
   "dependencies": {
     "next": "10.0.7",
