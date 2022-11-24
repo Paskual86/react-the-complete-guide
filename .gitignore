@@ -351,3 +351,4 @@ MigrationBackup/
 
 #Next JS folder
 .next
+25-replacing-redux-with-hooks/01-replacing-redux/yarn.lock

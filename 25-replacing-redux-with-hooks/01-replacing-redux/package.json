@@ -14,7 +14,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "commit": "git add . && git commit -am ",
+    "push": "git push origin main"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -30,5 +32,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "Rmoving Redux",
+  "main": "index.js",
+  "author": "Pablo",
+  "license": "MIT"
 }
